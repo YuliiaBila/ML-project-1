@@ -32,25 +32,27 @@ def evaluate_models(X_train, y_train, X_test, y_test, models, param):
             model_param = param.get(model_name, {})
             
             gs = GridSearchCV(model, model_param, cv=3)
-            logging.info('AAAAAA')
+            
             gs.fit(X_train, y_train)
-            logging.info('are you here?')
+
             model.set_params(**gs.best_params_)
             model.fit(X_train, y_train)
-            logging.info('BBBBBBBBBBBB')
+            
             y_test_pred = model.predict(X_test)
             
             test_model_r2 = r2_score(y_test, y_test_pred)
-            if test_model_r2 is None:
-                logging.info('HHHHHHHHHHHHHHHHHH')
-            report[model_name] = test_model_r2
 
-        if report is None:
-            logging.info('HHHHHHHHHHHHHHHHHH')
+            report[model_name] = test_model_r2
             
         return report 
 
-
+    except Exception as e:
+        raise CustomException(e, sys)
+    
+def load_object(file_path):
+    try:
+        with open(file_path, 'rb') as file_obj:
+            return dill.load(file_obj)
     except Exception as e:
         raise CustomException(e, sys)
     
