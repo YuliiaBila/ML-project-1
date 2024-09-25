@@ -37,12 +37,12 @@ def predict():
 
         return render_template('home.html', results=results[0])
     
-def open_browser():
-    webbrowser.open_new("http://127.0.0.1:5000")
+#def open_browser():
+#    webbrowser.open_new("http://127.0.0.1:5000")
     
 if __name__ == '__main__':
-    Timer(1, open_browser).start()
-    app.run(port=5000, debug=False)
+    #Timer(1, open_browser).start()
+    app.run(host='0.0.0.0')
     #app.run(host='0.0.0.0', debug=True)
 
 
